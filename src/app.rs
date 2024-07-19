@@ -9,7 +9,8 @@ use std::io::Write;
 use crate::schema::{SCHEMAS_EXTENDED, SCHEMA_DOC_PROPS_V_TYPES, SCHEMA_XML};
 
 #[derive(Debug, XmlRead, Clone)]
-#[xml(tag = "Properties")]
+#[xml(tag = "Properties", tag ="ap:Properties")]
+#[xml(tag = "ap:Properties")]
 pub struct App<'a> {
     #[xml(flatten_text = "Template")]
     pub template: Option<Cow<'a, str>>,

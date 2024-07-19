@@ -11,7 +11,7 @@ use crate::schema::{SCHEMAS_EXTENDED, SCHEMA_DOC_PROPS_V_TYPES, SCHEMA_XML};
 #[derive(Debug, XmlRead, Clone)]
 #[xml(tag ="ap:Properties", "Properties")]
 pub struct App<'a> {
-    #[xml(flatten_text = "Template")]
+    #[xml(tag="ap:Template", "Template", text)]
     pub template: Option<Cow<'a, str>>,
     #[xml(flatten_text = "TotalTime")]
     pub total_time: Option<Cow<'a, str>>,

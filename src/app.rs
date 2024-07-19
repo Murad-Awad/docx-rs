@@ -13,35 +13,35 @@ use crate::schema::{SCHEMAS_EXTENDED, SCHEMA_DOC_PROPS_V_TYPES, SCHEMA_XML};
 pub struct App<'a> {
     #[xml(flatten_text = "ap:Template", "Template")]
     pub template: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "TotalTime")]
+    #[xml(flatten_text = "ap:TotalTime","TotalTime")]
     pub total_time: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Pages")]
+    #[xml(flatten_text = "ap:Pages", "Pages")]
     pub pages: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Words")]
+    #[xml(flatten_text = "ap:Words", "Words")]
     pub words: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Characters")]
+    #[xml(flatten_text = "ap:Characters", "Characters")]
     pub characters: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Application")]
+    #[xml(flatten_text = "ap:Application", "Application")]
     pub application: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "DocSecurity")]
+    #[xml(flatten_text = "ap:DocSecurity", "DocSecurity")]
     pub doc_security: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Lines")]
+    #[xml(flatten_text = "ap:Lines", "Lines")]
     pub lines: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Paragraphs")]
+    #[xml(flatten_text = "ap:Paragraphs", "Paragraphs")]
     pub paragraphs: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "ScaleCrop")]
+    #[xml(flatten_text = "ap:ScaleCrop", "ScaleCrop")]
     pub scale_crop: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Company")]
+    #[xml(flatten_text = "ap:Company", "Company")]
     pub company: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "LinksUpToDate")]
+    #[xml(flatten_text = "ap:LinksUpToDate", "LinksUpToDate")]
     pub links_up_to_date: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "CharactersWithSpaces")]
+    #[xml(flatten_text = "ap:CharactersWithSpaces", "CharactersWithSpaces")]
     pub characters_with_spaces: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "SharedDoc")]
+    #[xml(flatten_text = "ap:SharedDoc", "SharedDoc")]
     pub shared_doc: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "HyperlinksChanged")]
+    #[xml(flatten_text = "ap:HyperlinksChanged", "HyperlinksChanged")]
     pub hyperlinks_changed: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "AppVersion")]
+    #[xml(flatten_text = "ap:AppVersion", "AppVersion")]
     pub app_version: Option<Cow<'a, str>>,
 }
 

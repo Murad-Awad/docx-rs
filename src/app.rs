@@ -19,7 +19,7 @@ pub enum App<'a>{
 #[derive(Debug, XmlRead, Clone)]
 #[xml(tag = "Properties")]
 pub struct NewApp<'a> {
-    #[xml(flatten_text = "Template", "ap:Template")]
+    #[xml(flatten_text = "Template")]
     pub template: Option<Cow<'a, str>>,
     #[xml(flatten_text = "TotalTime")]
     pub total_time: Option<Cow<'a, str>>,

@@ -9,7 +9,7 @@ use std::io::Write;
 use crate::schema::{SCHEMAS_EXTENDED, SCHEMA_DOC_PROPS_V_TYPES, SCHEMA_XML};
 
 #[derive(Debug, XmlRead, XmlWrite, Clone)]
-pub enum App<'a>{
+pub enum App<'a> {
     #[xml(tag = "Properties")]
     NewApp(NewApp<'a>),
     #[xml(tag = "ap:Properties")]
@@ -112,7 +112,6 @@ impl Default for NewApp<'static> {
         }
     }
 }
-
 
 impl Default for OldApp<'static> {
     fn default() -> OldApp<'static> {
@@ -269,7 +268,7 @@ impl<'a> XmlWrite for OldApp<'a> {
 
         let _ = write!(writer.inner, "{}", SCHEMA_XML);
 
-        writer.write_element_start("Properties")?;
+        writer.write_element_start("ap:Properties")?;
 
         writer.write_attribute("xmlns", SCHEMAS_EXTENDED)?;
         writer.write_attribute("xmlns:vt", SCHEMA_DOC_PROPS_V_TYPES)?;
@@ -295,54 +294,54 @@ impl<'a> XmlWrite for OldApp<'a> {
         } else {
             writer.write_element_end_open()?;
             if let Some(val) = template {
-                writer.write_flatten_text("Template", val, false)?;
+                writer.write_flatten_text("ap:Template", val, false)?;
             }
             if let Some(val) = total_time {
-                writer.write_flatten_text("TotalTime", val, false)?;
+                writer.write_flatten_text("ap:TotalTime", val, false)?;
             }
             if let Some(val) = pages {
-                writer.write_flatten_text("Pages", val, false)?;
+                writer.write_flatten_text("ap:Pages", val, false)?;
             }
             if let Some(val) = words {
-                writer.write_flatten_text("Words", val, false)?;
+                writer.write_flatten_text("ap:Words", val, false)?;
             }
             if let Some(val) = characters {
-                writer.write_flatten_text("Characters", val, false)?;
+                writer.write_flatten_text("ap:Characters", val, false)?;
             }
             if let Some(val) = application {
-                writer.write_flatten_text("Application", val, false)?;
+                writer.write_flatten_text("ap:Application", val, false)?;
             }
             if let Some(val) = doc_security {
-                writer.write_flatten_text("DocSecurity", val, false)?;
+                writer.write_flatten_text("ap:DocSecurity", val, false)?;
             }
             if let Some(val) = lines {
-                writer.write_flatten_text("Lines", val, false)?;
+                writer.write_flatten_text("ap:Lines", val, false)?;
             }
             if let Some(val) = paragraphs {
-                writer.write_flatten_text("Paragraphs", val, false)?;
+                writer.write_flatten_text("ap:Paragraphs", val, false)?;
             }
             if let Some(val) = scale_crop {
-                writer.write_flatten_text("ScaleCrop", val, false)?;
+                writer.write_flatten_text("ap:ScaleCrop", val, false)?;
             }
             if let Some(val) = company {
-                writer.write_flatten_text("Company", val, false)?;
+                writer.write_flatten_text("ap:Company", val, false)?;
             }
             if let Some(val) = links_up_to_date {
-                writer.write_flatten_text("LinksUpToDate", val, false)?;
+                writer.write_flatten_text("ap:LinksUpToDate", val, false)?;
             }
             if let Some(val) = characters_with_spaces {
-                writer.write_flatten_text("CharactersWithSpaces", val, false)?;
+                writer.write_flatten_text("ap:CharactersWithSpaces", val, false)?;
             }
             if let Some(val) = shared_doc {
-                writer.write_flatten_text("SharedDoc", val, false)?;
+                writer.write_flatten_text("ap:SharedDoc", val, false)?;
             }
             if let Some(val) = hyperlinks_changed {
-                writer.write_flatten_text("HyperlinksChanged", val, false)?;
+                writer.write_flatten_text("ap:HyperlinksChanged", val, false)?;
             }
             if let Some(val) = app_version {
-                writer.write_flatten_text("AppVersion", val, false)?;
+                writer.write_flatten_text("ap:AppVersion", val, false)?;
             }
-            writer.write_element_end_close("Properties")?;
+            writer.write_element_end_close("ap:Properties")?;
         }
 
         log::debug!("[App] Finished writing.");

@@ -163,6 +163,7 @@ impl<'a, 'b> XmlRead<'b> for App<'b> {
     fn from_reader(reader: &mut XmlReader<'b>) -> XmlResult<Self> {
         reader.read_till_element_start("")?;
         reader.read_till_element_start("Properties");
+
         Err(XmlError::IO(Error::new(std::io::ErrorKind::AddrInUse, "what")))
     }
 

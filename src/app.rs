@@ -8,10 +8,10 @@ use std::io::Write;
 
 use crate::schema::{SCHEMAS_EXTENDED, SCHEMA_DOC_PROPS_V_TYPES, SCHEMA_XML};
 
-#[derive(Debug, XmlRead, Clone)]
-#[xml(tag = "Properties")]
+#[derive(Debug, XmlRead)]
+#[xml(tag = "ap:Properties")]
 pub struct App<'a> {
-    #[xml(flatten_text = "Template")]
+    #[xml(flatten_text = "Properties")]
     pub template: Option<Cow<'a, str>>,
     #[xml(flatten_text = "TotalTime")]
     pub total_time: Option<Cow<'a, str>>,
@@ -173,4 +173,17 @@ impl<'a> XmlWrite for App<'a> {
 
         Ok(())
     }
+}
+
+#[cfg(test)]
+mod test {
+    use hard_xml::XmlRead;
+
+    use super::App;
+
+
+#[test]
+fn read_old_app() {
+let old_app_version = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?><ap:Properties xmlns=\"http://schemas.openxmlformats.org/officeDocument/2006/extended-properties\" xmlns:vt=\"http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes\" xmlns:ap=\"http://schemas.openxmlformats.org/officeDocument/2006/extended-properties\"><ap:Template>Normal.dotm</ap:Template><ap:Application>Microsoft Word for the web</ap:Application><ap:DocSecurity>0</ap:DocSecurity><ap:ScaleCrop>false</ap:ScaleCrop><ap:Company /><ap:SharedDoc>false</ap:SharedDoc><ap:HyperlinksChanged>false</ap:HyperlinksChanged><ap:AppVersion>16.0000</ap:AppVersion><ap:LinksUpToDate>false</ap:LinksUpToDate></ap:Properties>";
+let app = App::from_str(&old_app_version).expect("should exist");}
 }

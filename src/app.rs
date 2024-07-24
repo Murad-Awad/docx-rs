@@ -2,46 +2,30 @@
 //!
 //! The corresponding ZIP item is `/docProps/app.xml`.
 
-use hard_xml::{XmlRead, XmlResult, XmlWrite, XmlWriter};
-use std::borrow::Cow;
-use std::io::Write;
+use hard_xml::{XmlError, XmlRead, XmlReader, XmlResult, XmlWrite, XmlWriter};
+use zip::read;
+use std::{borrow::Cow, ptr::null};
+use std::io::{Error, Write};
 
 use crate::schema::{SCHEMAS_EXTENDED, SCHEMA_DOC_PROPS_V_TYPES, SCHEMA_XML};
 
-#[derive(Debug, XmlRead, Clone)]
-#[xml(tag = "Properties")]
+#[derive(Debug, Clone)]
 pub struct App<'a> {
-    #[xml(flatten_text = "Template")]
     pub template: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "TotalTime")]
     pub total_time: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Pages")]
     pub pages: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Words")]
     pub words: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Characters")]
     pub characters: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Application")]
     pub application: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "DocSecurity")]
     pub doc_security: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Lines")]
     pub lines: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Paragraphs")]
     pub paragraphs: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "ScaleCrop")]
     pub scale_crop: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "Company")]
     pub company: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "LinksUpToDate")]
     pub links_up_to_date: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "CharactersWithSpaces")]
     pub characters_with_spaces: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "SharedDoc")]
     pub shared_doc: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "HyperlinksChanged")]
     pub hyperlinks_changed: Option<Cow<'a, str>>,
-    #[xml(flatten_text = "AppVersion")]
     pub app_version: Option<Cow<'a, str>>,
 }
 
@@ -173,4 +157,31 @@ impl<'a> XmlWrite for App<'a> {
 
         Ok(())
     }
+}
+
+impl<'a, 'b> XmlRead<'b> for App<'b> {
+    fn from_reader(reader: &mut XmlReader<'b>) -> XmlResult<Self> {
+        reader.read_till_element_start("")?;
+        reader.read_till_element_start("Properties");
+        Err(XmlError::IO(Error::new(std::io::ErrorKind::AddrInUse, "what")))
+    }
+
+    fn from_str(text: &'b str) -> XmlResult<Self> {
+        let mut reader = XmlReader::new(text);
+        Self::from_reader(&mut reader)
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use hard_xml::XmlRead;
+
+    use super::App;
+
+
+#[test]
+fn read_old_app() {
+let old_app_version = "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?><ap:Properties xmlns=\"http://schemas.openxmlformats.org/officeDocument/2006/extended-properties\" xmlns:vt=\"http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes\" xmlns:ap=\"http://schemas.openxmlformats.org/officeDocument/2006/extended-properties\"><ap:Template>Normal.dotm</ap:Template><ap:Application>Microsoft Word for the web</ap:Application><ap:DocSecurity>0</ap:DocSecurity><ap:ScaleCrop>false</ap:ScaleCrop><ap:Company /><ap:SharedDoc>false</ap:SharedDoc><ap:HyperlinksChanged>false</ap:HyperlinksChanged><ap:AppVersion>16.0000</ap:AppVersion><ap:LinksUpToDate>false</ap:LinksUpToDate></ap:Properties>";
+App::from_str(&old_app_version).expect("should exist");
+}
 }
